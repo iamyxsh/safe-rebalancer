@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 import { CreateRebalancingDataDTO } from './types';
 
@@ -11,8 +11,13 @@ export class AppController {
     return this.appService.pong();
   }
 
-  @Post("/data")
+  @Post('/data')
   storeRebalancingData(@Body() body: CreateRebalancingDataDTO) {
     return this.appService.storeRebalancingData(body);
+  }
+
+  @Get('/data/:address')
+  getRebalancingData(@Param() param: any) {
+    return this.appService.getRebalancingData(param.address);
   }
 }
