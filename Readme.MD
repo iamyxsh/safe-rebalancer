@@ -22,15 +22,15 @@ To run tests, run the following command
 
 ## Features
 
-[X] Rebalncer Module
+- [x] Rebalncer Module
 
-[X] Session Key Generation
+- [x] Session Key Generation
 
-[X] Whitelisting Session Key
+- [x] Whitelisting Session Key
 
-[X] On-Chain Validation
+- [x] On-Chain Validation
 
-[X] Server Cron Jobs
+- [x] Server Cron Jobs
 
 ## To Do List
 
