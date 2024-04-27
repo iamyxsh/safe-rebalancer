@@ -60,9 +60,9 @@ contract SafeRebalancerModule {
 
     function getRebalanceData(
         address safe
-    ) external view returns (address, address, uint256) {
-        RebalanceData memory data = rebalanceData[safe];
-        return (data.tokenA, data.tokenB, data.price);
+    ) external view returns (RebalanceData memory data) {
+        data = rebalanceData[safe];
+        return data;
     }
 
     function getExecutor(address safe) public view returns (address) {
@@ -83,9 +83,10 @@ contract SafeRebalancerModule {
     }
 
     function executeRebalance(
-        Safe _safe
+        address _safe
     ) external onlyExecutor(address(_safe)) {
-        RebalanceData memory data = rebalanceData[address(_safe)];
+        Safe safe = Safe(payable(_safe));
+        RebalanceData memory data = rebalanceData[_safe];
 
         if (int256(data.price) >= getPrice()) {
             revert PriceNotReached();
@@ -93,7 +94,7 @@ contract SafeRebalancerModule {
 
         uint256 balance = IERC20(data.tokenA).balanceOf(address(_safe));
 
-        _safe.execTransactionFromModule(
+        safe.execTransactionFromModule(
             data.tokenA,
             0,
             abi.encodeCall(IERC20.approve, (address(this), balance)),
@@ -113,7 +114,7 @@ contract SafeRebalancerModule {
                 tokenIn: data.tokenA,
                 tokenOut: data.tokenB,
                 fee: 3000,
-                recipient: address(_safe),
+                recipient: _safe,
                 deadline: block.timestamp,
                 amountIn: balance,
                 amountOutMinimum: 0,

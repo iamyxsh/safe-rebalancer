@@ -25,7 +25,6 @@ export class AppService {
         sessionKeyPK: wallet.privateKey,
         tokenA: body.tokenA,
         tokenB: body.tokenB,
-        type: body.type,
       });
     } catch (err) {
       console.log(err);

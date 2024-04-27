@@ -1,18 +1,31 @@
 import { setup } from './setup'
 import { USDC_WHALE } from './constants'
-import { returnSafeAddress } from './returnSafe'
+import { ethers } from 'ethers'
+import Safe from '@safe-global/protocol-kit'
 
-export async function buyUsdc() {
-  const { provider, apiKit, safeFactory, owner1Signer, usdc } = await setup()
-  await provider.send('anvil_impersonateAccount', [USDC_WHALE])
+export async function buyUsdc(safe: Safe) {
+  const { provider, owner1Signer, usdc } = await setup()
 
-  const signer = await provider.getSigner(USDC_WHALE)
-  usdc.connect(signer)
+  const whaleBalance = await provider.getBalance(USDC_WHALE)
+  if (whaleBalance == ethers.toBigInt(0)) {
+    const tx1 = await owner1Signer.sendTransaction({
+      to: USDC_WHALE,
+      value: ethers.parseEther('1'),
+    })
+    await tx1.wait()
+  }
 
-  const safeAddress = await returnSafeAddress(safeFactory, apiKit, owner1Signer)
+  const safeAddress = await safe.getAddress()
 
-  const tx = await usdc.transfer(safeAddress, 500e6)
-  await tx.wait()
+  const balance = await usdc.balanceOf(safeAddress)
+  if (balance === 0) {
+    await provider.send('anvil_impersonateAccount', [USDC_WHALE])
+    const signer = await provider.getSigner(USDC_WHALE)
 
-  console.log(await usdc.balanceOf(safeAddress))
+    //@ts-ignore
+    const tx = await usdc.connect(signer).transfer(safeAddress, 500e6)
+    await tx.wait()
+  }
+
+  console.log('USDC balance of Safe', await usdc.balanceOf(safeAddress))
 }

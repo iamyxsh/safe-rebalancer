@@ -6,11 +6,14 @@ export const RPC_URL = 'http://localhost:8545'
 export const OWNER_1_PRIVATE_KEY = process.env.OWNER_1_PRIVATE_KEY!
 export const OWNER_2_PRIVATE_KEY = process.env.OWNER_2_PRIVATE_KEY!
 
-export const USDC = '0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359'
-export const WETH = '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270'
+export const USDC = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+export const WETH = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
 
-export const REBALANCER_MODULE = '0xacF639B916b443498E6BF29E52a8216030843035'
+export const REBALANCER_MODULE = '0x7aB5cEee0Ff304b053CE1F67d84C33F0ff407a55'
 
 export const SAFE_TXS_URL = 'http://localhost:8000/txs/api'
 
-export const USDC_WHALE = '0xAE81FAc689A1b4b1e06e7ef4a2ab4CD8aC0A087D'
+export const USDC_WHALE = '0xDa9CE944a37d218c3302F6B82a094844C6ECEb17'
+
+export const SERVER_URL = 'http://localhost:3000'
+export const AggregatorV3Address = '0xD61210E756f7D71Cc4F74abF0747D65Ea9d7525b'

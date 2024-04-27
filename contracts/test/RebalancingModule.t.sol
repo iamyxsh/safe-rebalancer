@@ -3,7 +3,7 @@ pragma solidity ^0.8.13;
 
 import {Test} from "forge-std/Test.sol";
 import {SafeTestTools, SafeTestLib, SafeInstance} from "safe-tools/SafeTestTools.sol";
-import {SafeRebalancerModule, UnauthorizedExecutor, PriceNotReached} from "../src/RebalancingModule.sol";
+import {SafeRebalancerModule, RebalanceData, UnauthorizedExecutor, PriceNotReached} from "../src/RebalancingModule.sol";
 import {AggregatorV3} from "../src/mocks/AggregatorV3.sol";
 import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
@@ -61,11 +61,10 @@ contract CounterTest is Test, SafeTestTools {
     }
 
     function test_RebalancingData() public view {
-        (address tokenA, address tokenB, uint256 price) = module
-            .getRebalanceData(address(safe.safe));
-        assertEq(tokenA, usdcAddress);
-        assertEq(tokenB, wethAddress);
-        assertEq(price, 1000);
+        RebalanceData memory data = module.getRebalanceData(address(safe.safe));
+        assertEq(data.tokenA, usdcAddress);
+        assertEq(data.tokenB, wethAddress);
+        assertEq(data.price, 1000);
     }
 
     function test_Executor() public view {
@@ -76,7 +75,7 @@ contract CounterTest is Test, SafeTestTools {
     function test_ExecuteRebalancing() public {
         priceAggregator.setPrice(1100);
         vm.prank(executor);
-        module.executeRebalance(safe.safe);
+        module.executeRebalance(address(safe.safe));
         assertEq(usdc.balanceOf(address(safe.safe)), 0);
     }
 
@@ -86,13 +85,13 @@ contract CounterTest is Test, SafeTestTools {
         priceAggregator.setPrice(1100);
         vm.prank(address(0));
         vm.expectRevert(abi.encodeWithSelector(UnauthorizedExecutor.selector));
-        module.executeRebalance(safe.safe);
+        module.executeRebalance(address(safe.safe));
     }
 
     function test_PriceNotReached() public {
         priceAggregator.setPrice(900);
         vm.prank(executor);
         vm.expectRevert(abi.encodeWithSelector(PriceNotReached.selector));
-        module.executeRebalance(safe.safe);
+        module.executeRebalance(address(safe.safe));
     }
 }

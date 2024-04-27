@@ -1,30 +1,24 @@
 import { ethers } from 'ethers'
-import Safe, {
-  EthersAdapter,
-  SigningMethod,
-  SafeFactory,
-} from '@safe-global/protocol-kit'
+import { EthersAdapter, SafeFactory } from '@safe-global/protocol-kit'
 import SafeApiKit from '@safe-global/api-kit'
+import { abi as V3abi } from './data/aggregatorv3.json'
 import {
   REBALANCER_MODULE,
   RPC_URL,
   SAFE_TXS_URL,
   USDC,
   WETH,
+  OWNER_1_PRIVATE_KEY,
+  OWNER_2_PRIVATE_KEY,
+  AggregatorV3Address,
 } from './constants'
 import { abi as erc20Abi } from './data/erc20Abi.json'
 import { abi as moduleAbi } from './data/moduleAbi.json'
 
 export async function setup() {
   const provider = new ethers.JsonRpcProvider(RPC_URL)
-  const owner1Signer = new ethers.Wallet(
-    process.env.OWNER_1_PRIVATE_KEY!,
-    provider
-  )
-  const owner2Signer = new ethers.Wallet(
-    process.env.OWNER_2_PRIVATE_KEY!,
-    provider
-  )
+  const owner1Signer = new ethers.Wallet(OWNER_1_PRIVATE_KEY!, provider)
+  const owner2Signer = new ethers.Wallet(OWNER_2_PRIVATE_KEY!, provider)
 
   const ethAdapterOwner1 = new EthersAdapter({
     ethers,
@@ -36,7 +30,8 @@ export async function setup() {
     signerOrProvider: owner2Signer,
   })
 
-  const apiKit = new SafeApiKit({
+  //@ts-ignore
+  const apiKit = new SafeApiKit.default({
     chainId: ethers.toBigInt(1),
     txServiceUrl: SAFE_TXS_URL,
   })
@@ -54,6 +49,12 @@ export async function setup() {
     provider
   )
 
+  const aggregator = new ethers.Contract(
+    AggregatorV3Address,
+    V3abi,
+    owner1Signer
+  )
+
   return {
     provider,
     owner1Signer,
@@ -64,5 +65,6 @@ export async function setup() {
     weth,
     rebalancerModule,
     safeFactory,
+    aggregator,
   }
 }

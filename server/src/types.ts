@@ -1,4 +1,4 @@
-import { IsEnum, IsEthereumAddress, IsNotEmpty } from 'class-validator';
+import { IsEthereumAddress, IsNotEmpty } from 'class-validator';
 
 export enum ThresholdType {
   LOWER = 'lower',
@@ -13,10 +13,6 @@ export class CreateRebalancingDataDTO {
 
   @IsEthereumAddress()
   tokenB: string;
-
-  @IsNotEmpty()
-  @IsEnum(ThresholdType)
-  type: ThresholdType;
 
   @IsNotEmpty()
   amount: string;

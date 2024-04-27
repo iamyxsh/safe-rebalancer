@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
-import { ThresholdType } from './types';
 
 export type RebalancingDataDocument = HydratedDocument<RebalancingData>;
 
@@ -14,9 +13,6 @@ export class RebalancingData {
 
   @Prop()
   tokenB: string;
-
-  @Prop({ type: String, enum: ThresholdType, default: ThresholdType.LOWER })
-  type: ThresholdType;
 
   @Prop()
   amount: string;

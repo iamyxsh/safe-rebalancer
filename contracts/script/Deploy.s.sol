@@ -5,7 +5,7 @@ import {Script, console2} from "forge-std/Script.sol";
 import {AggregatorV3} from "../src/mocks/AggregatorV3.sol";
 import {SafeRebalancerModule} from "../src/RebalancingModule.sol";
 
-contract CounterScript is Script {
+contract DeployScript is Script {
     address public swapRouterAddress =
         0xE592427A0AEce92De3Edee1F18E0157C05861564;
 

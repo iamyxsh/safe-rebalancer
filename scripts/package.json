@@ -3,17 +3,23 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "start": "tsx watch main.ts"
+    "start": "tsx watch main.ts",
+    "setPrice": "tsx setPrice.ts",
+    "balances": "tsx balances.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@chainlink/abi": "^0.1.4",
     "@safe-global/api-kit": "^2.3.0",
     "@safe-global/protocol-kit": "^3.0.2",
+    "axios": "^1.6.8",
     "dotenv": "^16.4.5",
     "ethers": "^6.12.0",
+    "tsc": "^2.0.4",
     "tsx": "^4.7.3"
   }
 }
