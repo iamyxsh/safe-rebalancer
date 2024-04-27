@@ -1,0 +1,21 @@
+[submodule "contracts/lib/chainlink"]
+	path = contracts/lib/chainlink
+	url = https://github.com/smartcontractkit/chainlink
+[submodule "contracts/lib/openzeppelin-contracts"]
+	path = contracts/lib/openzeppelin-contracts
+	url = https://github.com/OpenZeppelin/openzeppelin-contracts
+[submodule "contracts/lib/v3-core"]
+	path = contracts/lib/v3-core
+	url = https://github.com/Uniswap/v3-core
+[submodule "contracts/lib/v3-periphery"]
+	path = contracts/lib/v3-periphery
+	url = https://github.com/Uniswap/v3-periphery
+[submodule "contracts/lib/foundry-chainlink-toolkit"]
+	path = contracts/lib/foundry-chainlink-toolkit
+	url = https://github.com/smartcontractkit/foundry-chainlink-toolkit
+[submodule "contracts/lib/safe-smart-account"]
+	path = contracts/lib/safe-smart-account
+	url = https://github.com/safe-global/safe-smart-account
+[submodule "contracts/lib/safe-tools"]
+	path = contracts/lib/safe-tools
+	url = https://github.com/colinnielsen/safe-tools
