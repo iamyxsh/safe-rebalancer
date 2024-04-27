@@ -18,6 +18,33 @@ To run tests, run the following command
 
 ```bash
   cd contracts && forge test --rpc-url <your node URL to forked mainnet>
+
+```
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/iamyxsh/safe-rebalancer.git
+```
+
+Go to the project directory
+
+```bash
+  cd safe-rebalancer
+```
+
+Start Forked Blockchain
+
+```bash
+  yarn blockchain
+```
+
+Start the server
+
+```bash
+  yarn server
 ```
 
 ## Features
@@ -43,3 +70,7 @@ To run tests, run the following command
 [ ] Gas Less Execution of Rebalancing (Maybe Smart Wallet of Session Keys)
 
 [ ] Better management of every token pair
+
+## Authors
+
+- [@iamyxsh](http://iamyxsh.dev)
