@@ -1,66 +1,24 @@
-## Foundry
+# Contracts
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+This section holds the contracts required for the App.
 
-Foundry consists of:
+## Components
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+There are 2 major contracts :-
 
-## Documentation
+1. [Rebalancing Module](https://github.com/iamyxsh/safe-rebalancer/blob/master/contracts/src/RebalancingModule.sol)
+2. [Mock Aggregator](https://github.com/iamyxsh/safe-rebalancer/blob/master/contracts/src/mocks/AggregatorV3.sol)
 
-https://book.getfoundry.sh/
+## Rebalancing Module
 
-## Usage
+This is a Safe Module that can be enabled in any Safe. This module will execute transaction (swap) when the parameters are reached. Please visist the [contract](https://github.com/iamyxsh/safe-rebalancer/blob/master/contracts/src/RebalancingModule.sol) code to know more about the technical details.
 
-### Build
+## Aggregator V3
 
-```shell
-$ forge build
-```
+This is a mock contract that acts as a ChainLink price feed. For forked mainnet, I have added a custom function that changes the price and mimics the market.
 
-### Test
-
-```shell
-$ forge test
-```
-
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
+```solidity
+    function setPrice(int256 _price) external {
+        price = _price;
+    }
 ```
