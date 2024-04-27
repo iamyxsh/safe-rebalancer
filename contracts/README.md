@@ -22,3 +22,11 @@ This is a mock contract that acts as a ChainLink price feed. For forked mainnet,
         price = _price;
     }
 ```
+
+## Deployment
+
+To deploy the Rebalancer Module and Aggregator contracts
+
+```bash
+  forge script script/Deploy.s.sol:DeployScript --broadcast --rpc-url <node url to your forked mainnet> --private-key <your private key>
+```

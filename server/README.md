@@ -49,6 +49,14 @@ These are the following API functionalities exposed by the server :-
 }
 ```
 
+## Cronjob
+
+The Cronjob will execute at 10 PM every day.
+
+```javascript
+ @Cron(CronExpression.EVERY_DAY_AT_10AM)
+```
+
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
